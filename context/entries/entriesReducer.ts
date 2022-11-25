@@ -3,7 +3,8 @@ import { EntriesState } from "./";
 
 type EntriesActionType =
   | { type: "[Entry] Add-Entry"; payload: Entry }
-  | { type: "[Entry] Entry-Updated"; payload: Entry };
+  | { type: "[Entry] Entry-Updated"; payload: Entry }
+  | { type: "[Entry] Refresh-Data"; payload: Entry[] };
 
 export const entriesReducer = (
   state: EntriesState,
@@ -29,6 +30,13 @@ export const entriesReducer = (
 
           return entry;
         }),
+      };
+
+    case "[Entry] Refresh-Data":
+      return {
+        ...state,
+        // [...action.payload] esto basicamente esta creando un nuevo arreglo con los datos que llegan de la query
+        entries: [...action.payload],
       };
 
     default:
